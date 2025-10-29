@@ -3,6 +3,8 @@ import React from "react";
 function useEventListener(target, type, handler, options) {
 	const savedHandler = React.useRef();
 	React.useEffect(() => { savedHandler.current = handler; }, [handler]);
+	// store handler in ref so it can be replaced "hot" without re-registering the event listener
+	// savedHandler.current is used from the actual listener below
 	React.useEffect(() => {
 		if (!type) return;
 		let targetElement = null;
@@ -51,7 +53,6 @@ function useFetch(url){
 	const [loading, setLoading] = React.useState(false);
 	const [error, setError] = React.useState(null);
 	const controllerRef = React.useRef(null);
-	const refetchIndex = React.useRef(0);
 	const fetchData = React.useCallback((signal) => {
 		setLoading(true);
 		setError(null);

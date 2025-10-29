@@ -49,15 +49,6 @@ function useLocalStorage(key, initialValue){
         }
     });
 
-    React.useEffect(()=>{
-        try {
-            const item = window.localStorage.getItem(key);
-            setStoredValue(item ? JSON.parse(item) : initialValue);
-        } catch (e) {
-            setStoredValue(initialValue);
-        }
-    }, [key, initialValue]);
-
     const setValue = value => {
         try {
             setStoredValue(value);

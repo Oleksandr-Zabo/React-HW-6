@@ -19,8 +19,9 @@ function GameField() {
     const { secret, attempts, setAttempts, setStatus, setScore, score } = React.useContext(GameContext);
     const [value, setValue] = React.useState('');
     function guess() {
-        const n = Number(value);
-        if (!n) return;
+        const n = parseInt(value, 10);
+        if (Number.isNaN(n)) return;
+        if (n < 1 || n > 10) return;
         const next = attempts + 1;
         setAttempts(next);
         if (n === secret) {
